@@ -36,15 +36,7 @@ public class HW1 {
 			//add to arrayList
 			validStates.add(rightMovement);
 		}
-		if(zeroIndex[1] -1 >= 0 ) { //left
-			int[][] leftMovement = copy2D(currentState);
-			//move non-empty number
-			leftMovement[zeroIndex[0]][zeroIndex[1]] = leftMovement[zeroIndex[0]][zeroIndex[1]-1];
-			//move empty space, represented as 0
-			leftMovement[zeroIndex[0]][zeroIndex[1] - 1] = 0;
-			//add to arrayList
-			validStates.add(leftMovement);
-		}
+		
 		//check and see if you can go up and/or down
 		if(zeroIndex[0] -1 >= 0) {// up
 			int[][] upMovement = copy2D(currentState);
@@ -64,6 +56,29 @@ public class HW1 {
 			//add to arrayList
 			validStates.add(downMovement);
 		}
+		if(zeroIndex[1] -1 >= 0 ) { //left
+			int[][] leftMovement = copy2D(currentState);
+			//move non-empty number
+			leftMovement[zeroIndex[0]][zeroIndex[1]] = leftMovement[zeroIndex[0]][zeroIndex[1]-1];
+			//move empty space, represented as 0
+			leftMovement[zeroIndex[0]][zeroIndex[1] - 1] = 0;
+			//add to arrayList
+			validStates.add(leftMovement);
+		}
+		Collections.sort(validStates, new Comparator<int[][]>() {
+			public int compare(int[][] a, int[][] b) {
+				if(a[zeroIndex[0]][zeroIndex[1]] > b [zeroIndex[0]][zeroIndex[1]]) {
+					return -1;
+				}
+				else if(a[zeroIndex[0]][zeroIndex[1]] == b[zeroIndex[0]][zeroIndex[1]]) {
+					return 0;
+				}
+				else {
+					return 1;
+				}
+			}
+		}
+	);
 		return validStates;
 	}
 	//find 0
